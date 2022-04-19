@@ -1,7 +1,7 @@
 const twoModule = () => {
     const name = 'two.js'
 
-    console.log(name);
+    // console.log(name);
 }
 
 export default twoModule
