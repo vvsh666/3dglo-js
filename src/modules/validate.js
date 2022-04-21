@@ -11,6 +11,12 @@ const validate = () => {
         input.addEventListener('input', (e) => {
             e.target.value = e.target.value.replace(/[^А-Яа-яё -]+/, '')
         })
+        input.addEventListener('blur', (e) => {
+            e.target.value = e.target.value.replace(/\s{2,}/g, ' ')
+            e.target.value = e.target.value.replace(/-{2,}/g, '-')
+            e.target.value = e.target.value.replace(/^\s+/, '').replace(/^-+/, '').replace(/^\s+/, '').replace(/^-+/, '')
+
+        })
     })
     userPhoneInputs.forEach((input) => {
         input.addEventListener('input', (e) => {
