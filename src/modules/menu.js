@@ -17,7 +17,10 @@ const menu = () => {
 
     menuBtn.addEventListener('click', handleMenu)
 
-    closeBtn.addEventListener('click', handleMenu)
+    closeBtn.addEventListener('click', (e) => {
+        e.preventDefault()
+        handleMenu()
+    })
 
     menuLinks.forEach(menuLink => {        
         menuLink.addEventListener('click', (event) => {
