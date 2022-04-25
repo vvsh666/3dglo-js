@@ -1,8 +1,5 @@
 const menu = () => {
-    const menuBtn = document.querySelector('.menu')
     const menu = document.querySelector('menu')
-    const closeBtn = menu.querySelector('.close-btn')
-    const menuLinks = menu.querySelectorAll('ul>li>a')
     const scrollUp = document.querySelector('main>a[href="#service-block"]')
 
     const handleMenu = () => {
@@ -12,28 +9,29 @@ const menu = () => {
     const scrollSmoothToAnchor = (link, event) => {
         event.preventDefault()
         let element = document.getElementById(link.getAttribute('href').substring(1))
-        element.scrollIntoView({behavior: 'smooth'})
+        element.scrollIntoView({ behavior: 'smooth' })
     }
 
-    menuBtn.addEventListener('click', handleMenu)
+    document.addEventListener('click', (e) => {
 
-    closeBtn.addEventListener('click', (e) => {
-        e.preventDefault()
-        handleMenu()
-    })
-
-    menuLinks.forEach(menuLink => {        
-        menuLink.addEventListener('click', (event) => {
-            scrollSmoothToAnchor(menuLink, event)
+        if (!e.target.closest('menu') && menu.classList.contains('active-menu')) {
             handleMenu()
-        })        
+        }
+        if (e.target.closest('.menu')) {
+            handleMenu()
+        }
+        if (e.target.classList.contains('close-btn')) {
+            e.preventDefault()
+            handleMenu()
+        }
+        if (e.target.matches('ul>li>a')) {
+            scrollSmoothToAnchor(e.target, e)
+            handleMenu()
+        }
+        if (e.target.closest('main>a[href="#service-block"]')) {
+            scrollSmoothToAnchor(e.target.closest('main>a[href="#service-block"]'), e)
+        }
     })
-
-    scrollUp.addEventListener('click', (e) => {
-        scrollSmoothToAnchor(scrollUp, e)
-    })
-
-
 }
 
 export default menu
