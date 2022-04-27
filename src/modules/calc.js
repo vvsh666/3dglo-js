@@ -9,10 +9,21 @@ const calc = (price = 100) => {
     const calcDay = document.querySelector('.calc-day')
     const total = document.getElementById('total')
 
-    for (let i = 1; i < calcItems.length; i++) {
-        calcItems[i].addEventListener('input', (event) => {
-            event.target.value = event.target.value.replace(/\D+/, '')
-        })
+    const totalAnimate = (totalValue) => {
+        let count = 0
+        let interval
+        let time = 100
+        let step = Math.ceil(totalValue / 250)
+        let t = Math.ceil(time / (totalValue / step))
+
+        interval = setInterval(() => {
+            count += step
+            if (count >= totalValue) {
+                clearInterval(interval)
+                count = totalValue
+            }
+            total.textContent = count
+        }, t)
     }
 
     const countCalc = () => {
@@ -34,13 +45,22 @@ const calc = (price = 100) => {
         }
 
         if (calcTypeValue && calcSquareValue) {
-            totalValue = price * calcTypeValue * calcSquareValue * calcCountValue * calcDayValue
+            totalValue = Math.ceil(price * calcTypeValue * calcSquareValue * calcCountValue * calcDayValue)
         } else {
             totalValue = 0
         }
 
-        total.textContent = totalValue
+        if (totalValue === 0) {
+            total.textContent = totalValue
+        } else {
+            totalAnimate(totalValue)
+        }
+    }
 
+    for (let i = 1; i < calcItems.length; i++) {
+        calcItems[i].addEventListener('input', (event) => {
+            event.target.value = event.target.value.replace(/\D+/, '')
+        })
     }
 
     calcBlock.addEventListener('input', (e) => {
@@ -48,8 +68,6 @@ const calc = (price = 100) => {
             e.target === calcCount || e.target === calcDay) {
             countCalc()
         }
-
-
     })
 
 }
