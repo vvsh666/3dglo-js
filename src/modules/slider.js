@@ -1,10 +1,10 @@
 'use strict'
 
-const slider = (portfolioContent, portfolioItem, portfolioDots, dot, portfolioBtn, portfolioItemActive = 'portfolio-item-active', dotActive = 'dot-active') => {
+const slider = (portfolioContent, portfolioItem, portfolioDots, portfolioBtn, portfolioItemActive = 'portfolio-item-active', dotActive = 'dot-active') => {
 
     const sliderBlock = document.querySelector('.' + portfolioContent)
-    const slides = document.querySelectorAll('.' + portfolioItem)
-    const dotsBlock = document.querySelector('.' + portfolioDots)
+    const slides = sliderBlock.querySelectorAll('.' + portfolioItem)
+    const dotsBlock = sliderBlock.querySelector('.' + portfolioDots)
     const timeInterval = 2000
 
     let dots
@@ -18,11 +18,13 @@ const slider = (portfolioContent, portfolioItem, portfolioDots, dot, portfolioBt
     const createDots = () => {
         for (let i = 0; i < slides.length; i++) {
             let liDot = document.createElement('li')
-            liDot.classList.add(dot)
+            liDot.classList.add('dot')
+            if (i === 0) {
+                liDot.classList.add(dotActive)
+            }
             dotsBlock.append(liDot)
         }
-        dots = document.querySelectorAll('.' + dot)
-        dots[0].classList.add(dotActive)
+        dots = sliderBlock.querySelectorAll('.dot')
     }
 
     const prevSlide = (elems, index, strClass) => {
@@ -56,7 +58,7 @@ const slider = (portfolioContent, portfolioItem, portfolioDots, dot, portfolioBt
     sliderBlock.addEventListener('click', (e) => {
         e.preventDefault()
 
-        if (!e.target.matches(`.${dot}, .${portfolioBtn}`)) {
+        if (!e.target.matches(`.dot, .${portfolioBtn}`)) {
             return
         }
 
@@ -67,7 +69,7 @@ const slider = (portfolioContent, portfolioItem, portfolioDots, dot, portfolioBt
             currentSlide++
         } else if (e.target.matches('#arrow-left')) {
             currentSlide--
-        } else if (e.target.classList.contains(dot)) {
+        } else if (e.target.classList.contains('dot')) {
             dots.forEach((dot, index) => {
                 if (e.target === dot) {
                     currentSlide = index
@@ -86,13 +88,13 @@ const slider = (portfolioContent, portfolioItem, portfolioDots, dot, portfolioBt
     })
 
     sliderBlock.addEventListener('mouseenter', (e) => {
-        if (e.target.matches(`.${dot}, .${portfolioBtn}`)) {
+        if (e.target.matches(`.dot, .${portfolioBtn}`)) {
             stopSlide()
         }
     }, true)
 
     sliderBlock.addEventListener('mouseleave', (e) => {
-        if (e.target.matches(`.${dot}, .${portfolioBtn}`)) {
+        if (e.target.matches(`.dot, .${portfolioBtn}`)) {
             startSlide(timeInterval)
         }
     }, true)
