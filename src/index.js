@@ -9,7 +9,7 @@ import slider from './modules/slider'
 timer('25 april 2022')
 menu()
 modal()
-calc()
+calc(100)
 validate()
 tabs()
 slider('portfolio-content', 'portfolio-item', 'portfolio-dots', 'portfolio-btn')
