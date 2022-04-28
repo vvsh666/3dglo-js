@@ -12,18 +12,19 @@ const calc = (price = 100) => {
     const totalAnimate = (totalValue) => {
         let count = 0
         let interval
-        let time = 100
-        let step = Math.ceil(totalValue / 250)
-        let t = Math.ceil(time / (totalValue / step))
+        let step = Math.ceil(totalValue / 50)
 
-        interval = setInterval(() => {
+        const animate = () => {
             count += step
+            interval = requestAnimationFrame(animate)
+
             if (count >= totalValue) {
-                clearInterval(interval)
+                cancelAnimationFrame(interval)
                 count = totalValue
             }
             total.textContent = count
-        }, t)
+        }
+        animate()
     }
 
     const countCalc = () => {
