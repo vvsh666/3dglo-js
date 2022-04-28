@@ -1,3 +1,7 @@
+'use strict'
+
+import { animate } from "./helpers"
+
 const modal = () => {
     const buttons = document.querySelectorAll('.popup-btn')
     const modal = document.querySelector('.popup')
@@ -5,21 +9,19 @@ const modal = () => {
     buttons.forEach(btn => {
         btn.addEventListener('click', () => {
             if (document.documentElement.clientWidth >= 768) {
-                let idAnimation
-                let count = 0
+
                 modal.style.opacity = 0
                 modal.style.display = 'block'
-                const modalAnimation = () => {
-                    count++
-                    idAnimation = requestAnimationFrame(modalAnimation)
-                    if (count <= 50) {
-                        modal.style.opacity = count * 0.02
-                    } else {
-                        cancelAnimationFrame(idAnimation)
-                    }
 
-                }
-                modalAnimation()
+                animate({
+                    duration: 500,
+                    timing(timeFraction) {
+                        return timeFraction;
+                    },
+                    draw(progress) {
+                        modal.style.opacity = progress
+                    }
+                })
             } else {
                 modal.style.display = 'block'
             }
