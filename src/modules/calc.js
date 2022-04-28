@@ -1,5 +1,7 @@
 'use strict'
 
+import { animate } from "./helpers"
+
 const calc = (price = 100) => {
     const calcBlock = document.querySelector('.calc-block')
     const calcItems = document.querySelectorAll('.calc-item')
@@ -8,24 +10,6 @@ const calc = (price = 100) => {
     const calcCount = document.querySelector('.calc-count')
     const calcDay = document.querySelector('.calc-day')
     const total = document.getElementById('total')
-
-    const totalAnimate = (totalValue) => {
-        let count = 0
-        let interval
-        let step = Math.ceil(totalValue / 50)
-
-        const animate = () => {
-            count += step
-            interval = requestAnimationFrame(animate)
-
-            if (count >= totalValue) {
-                cancelAnimationFrame(interval)
-                count = totalValue
-            }
-            total.textContent = count
-        }
-        animate()
-    }
 
     const countCalc = () => {
         const calcTypeValue = +calcType.options[calcType.selectedIndex].value
@@ -54,7 +38,15 @@ const calc = (price = 100) => {
         if (totalValue === 0) {
             total.textContent = totalValue
         } else {
-            totalAnimate(totalValue)
+            animate({
+                duration: 400,
+                timing(timeFraction) {
+                    return timeFraction;
+                },
+                draw(progress) {
+                    total.textContent = Math.floor(totalValue * progress)
+                }
+            });
         }
     }
 
