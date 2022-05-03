@@ -34,7 +34,7 @@ const validate = () => {
     })
     userPhoneInputs.forEach((input) => {
         input.addEventListener('input', (e) => {
-            e.target.value = e.target.value.replace(/[^0-9\(\)-]+/, '')
+            e.target.value = e.target.value.replace(/[^0-9\(\)\-\+]+/, '')
         })
         input.addEventListener('blur', (e) => {
             delSpaceHyphen(e)
@@ -49,7 +49,7 @@ const validate = () => {
         })
     })
     userMessageInput.addEventListener('input', (e) => {
-        e.target.value = e.target.value.replace(/[^А-Яа-яё -]+/, '')
+        e.target.value = e.target.value.replace(/[^0-9А-Яа-яё -\.\,\:\?\!]+/, '')
     })
     userMessageInput.addEventListener('blur', (e) => {
         delSpaceHyphen(e)

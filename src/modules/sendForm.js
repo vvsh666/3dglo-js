@@ -10,6 +10,24 @@ const sendForm = ({ idForm, someElem = [] }) => {
     const validate = (list) => {
         let success = true
 
+        list.forEach((input) => {
+            if (input.name === 'user_name') {
+                if (/[^А-Яа-яё -]+/g.test(input.value)) {
+                    success = false
+                }
+            }
+            if (input.name === 'user_message') {
+                if (/[^0-9А-Яа-яё -\.\,\:\?\!]+/g.test(input.value)) {
+                    success = false
+                }
+            }
+            if (input.name === 'user_phone') {
+                if (/[^0-9\(\)\-\+]+/g.test(input.value)) {
+                    success = false
+                }
+            }
+        })
+
         return success
     }
 
@@ -28,7 +46,7 @@ const sendForm = ({ idForm, someElem = [] }) => {
         const formData = new FormData(form)
         const formBody = {}
 
-        statusBlock.textContent = loadText
+        statusBlock.style.color = '#fff'
         form.append(statusBlock)
 
         formData.forEach((val, key) => {
@@ -46,6 +64,7 @@ const sendForm = ({ idForm, someElem = [] }) => {
         })
 
         if (validate(formElements)) {
+            statusBlock.textContent = loadText
             sendData(formBody).then(data => {
                 statusBlock.textContent = successText
 
