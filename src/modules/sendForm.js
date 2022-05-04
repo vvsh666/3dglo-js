@@ -43,8 +43,11 @@ const sendForm = ({ idForm, someElem = [] }) => {
 
     const submitForm = () => {
         const formElements = form.querySelectorAll('input')
+        const btn = form.querySelector('button')
         const formData = new FormData(form)
         const formBody = {}
+
+        console.log(btn);
 
         statusBlock.style.color = '#fff'
         form.append(statusBlock)
@@ -64,7 +67,7 @@ const sendForm = ({ idForm, someElem = [] }) => {
         })
 
         if (validate(formElements)) {
-            statusBlock.textContent = loadText
+            statusBlock.innerHTML = '<img src="../src/images/preload.gif">'
             sendData(formBody).then(data => {
                 statusBlock.textContent = successText
 
