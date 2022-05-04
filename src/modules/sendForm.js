@@ -3,7 +3,6 @@
 const sendForm = ({ idForm, someElem = [] }) => {
     const form = document.getElementById(idForm)
     const statusBlock = document.createElement('div')
-    const loadText = 'Загрузка...'
     const errorText = 'Ошибка...'
     const successText = 'Спасибо! Наш менеджер с вами свяжется!'
 
@@ -46,8 +45,6 @@ const sendForm = ({ idForm, someElem = [] }) => {
         const btn = form.querySelector('button')
         const formData = new FormData(form)
         const formBody = {}
-
-        console.log(btn);
 
         statusBlock.style.color = '#fff'
         form.append(statusBlock)

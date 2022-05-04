@@ -7,7 +7,7 @@ import tabs from './modules/tabs'
 import slider from './modules/slider'
 import sendForm from './modules/sendForm'
 
-timer('25 april 2022')
+timer('12 may 2022')
 menu()
 modal()
 calc(100)
