@@ -5,6 +5,10 @@ import { animate } from "./helpers"
 const modal = () => {
     const buttons = document.querySelectorAll('.popup-btn')
     const modal = document.querySelector('.popup')
+    const modalContent = modal.querySelector('.popup-content')
+
+    modalContent.style.left = '50%'
+    modalContent.style.transform = 'translateX(-50%)'
 
     buttons.forEach(btn => {
         btn.addEventListener('click', () => {
