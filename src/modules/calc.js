@@ -57,8 +57,9 @@ const calc = (price = 100) => {
     }
 
     calcBlock.addEventListener('input', (e) => {
-        if (e.target === calcType || (e.target === calcSquare && !(/\D+/.test(e.data))) ||
-            (e.target === calcCount && !(/\D+/.test(e.data))) || (e.target === calcDay && !(/\D+/.test(e.data)))) {
+        const checkInput = !(/\D+/.test(e.data)) || e.data === null
+        if (e.target === calcType || (e.target === calcSquare && checkInput) ||
+            (e.target === calcCount && checkInput) || (e.target === calcDay && checkInput)) {
             countCalc()
         }
     })
