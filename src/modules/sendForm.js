@@ -30,6 +30,10 @@ const sendForm = ({ idForm, someElem = [] }) => {
         return success
     }
 
+    const deleteStatusBlock = () => {
+        setTimeout(() => statusBlock.remove(), 3000)
+    }
+
     const sendData = (data) => {
         return fetch('https://jsonplaceholder.typicode.com/posts', {
             method: 'POST',
@@ -64,20 +68,23 @@ const sendForm = ({ idForm, someElem = [] }) => {
         })
 
         if (validate(formElements)) {
-            statusBlock.innerHTML = '<img src="../src/images/preload.gif">'
+            statusBlock.innerHTML = '<img src="./images/preload.gif">'
             sendData(formBody).then(data => {
                 statusBlock.textContent = successText
 
                 formElements.forEach(element => {
                     element.value = ''
                 })
+                deleteStatusBlock()
             })
                 .catch(error => {
                     statusBlock.textContent = errorText
+                    deleteStatusBlock()
                 })
         } else {
             alert('Данные не валидны!!!')
         }
+
     }
 
     try {
