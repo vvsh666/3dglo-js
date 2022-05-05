@@ -21,7 +21,7 @@ const sendForm = ({ idForm, someElem = [] }) => {
                 }
             }
             if (input.name === 'user_phone') {
-                if (/[^0-9\(\)\-\+]+/g.test(input.value)) {
+                if (/[^0-9\(\)\-\+]+/g.test(input.value) || input.value.length < 10 || input.value.length > 17) {
                     success = false
                 }
             }

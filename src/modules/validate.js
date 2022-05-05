@@ -6,6 +6,11 @@ const validate = () => {
     const userEmailInputs = document.querySelectorAll('input[name=user_email]')
     const userMessageInput = document.querySelector('input[name=user_message]')
 
+    userPhoneInputs.forEach((input) => {
+        input.setAttribute('minlength', 10)
+        input.setAttribute('maxlength', 17)
+    })
+
     const delSpaceHyphen = (e) => {
         e.target.value = e.target.value.replace(/\s{2,}/g, ' ')
         e.target.value = e.target.value.replace(/-{2,}/g, '-')
